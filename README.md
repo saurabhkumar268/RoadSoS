@@ -187,14 +187,9 @@ This project is licensed under the MIT License.
 
 # 👨‍💻 Developer
 
-Made with ❤️ by Your Name
+Made with ❤️ by Saurabh Kumar
 
-GitHub:
-```text
-https://github.com/yourusername
-```
 
----
 
 # ⭐ Support
 
