@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>RoadSoS</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+    <!-- LOADER -->
+
+    <div id="loader">
+
+        <div class="spinner"></div>
+
+        <h1>🚨 RoadSoS</h1>
+
+        <p>Initializing Emergency Systems...</p>
+
+    </div>
+
+    <!-- MAIN APP -->
+
+    <div class="background-glow"></div>
+
+    <div class="container" id="mainContent">
+
+        <div class="top-bar">
+
+            <div class="logo">
+                🚨 RoadSoS
+            </div>
+
+            <div class="status-live">
+                ● SYSTEM ACTIVE
+            </div>
+
+        </div>
+
+        <h1>
+            Emergency Response System
+        </h1>
+
+        <p class="subtitle">
+            Real-Time Emergency Response & Rescue System
+        </p>
+
+        <button class="sos-btn" onclick="activateSOS()">
+            SOS
+        </button>
+
+        <br>
+
+        <button class="voice-btn" onclick="startVoiceSOS()">
+            🎤 Voice SOS
+        </button>
+
+        <div id="popup" class="popup">
+
+            <h2>🚨 SOS ACTIVATED</h2>
+
+            <p>
+                Emergency services are being alerted...
+            </p>
+
+            <h3 id="locationText">
+                Fetching location...
+            </h3>
+
+            <iframe id="mapFrame"></iframe>
+
+            <a id="hospitalLink" target="_blank">
+
+                <button class="hospital-btn">
+                    🏥 Nearby Hospitals
+                </button>
+
+            </a>
+
+            <div class="alert-box">
+                ✅ Emergency Alert Sent Successfully
+            </div>
+
+            <div class="status-grid">
+
+                <div class="status-card">
+                    🛰️ GPS CONNECTED
+                </div>
+
+                <div class="status-card">
+                    📩 ALERT SENT
+                </div>
+
+                <div class="status-card">
+                    🏥 HOSPITAL FOUND
+                </div>
+
+                <div class="status-card">
+                    🎤 VOICE SOS ACTIVE
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+
+</html>

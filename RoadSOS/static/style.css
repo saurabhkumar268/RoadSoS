@@ -1,0 +1,400 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+
+    background:#050816;
+
+    font-family:Arial;
+
+    color:white;
+
+    min-height:100vh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    overflow-x:hidden;
+}
+
+/* LOADER */
+
+#loader{
+
+    position:fixed;
+
+    width:100%;
+    height:100vh;
+
+    background:#050816;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    flex-direction:column;
+
+    z-index:999;
+}
+
+.spinner{
+
+    width:120px;
+    height:120px;
+
+    border:10px solid rgba(255,255,255,0.1);
+
+    border-top:10px solid red;
+
+    border-radius:50%;
+
+    animation:spin 1s linear infinite;
+}
+
+#loader h1{
+
+    margin-top:30px;
+
+    font-size:50px;
+}
+
+#loader p{
+
+    margin-top:10px;
+
+    color:#aaa;
+}
+
+/* MAIN CONTENT */
+
+#mainContent{
+
+    display:none;
+}
+
+.background-glow{
+
+    position:absolute;
+
+    width:500px;
+    height:500px;
+
+    background:red;
+
+    filter:blur(180px);
+
+    opacity:0.15;
+
+    z-index:0;
+}
+
+.container{
+
+    position:relative;
+
+    z-index:1;
+
+    width:90%;
+    max-width:850px;
+
+    padding:40px;
+
+    border-radius:30px;
+
+    background:rgba(255,255,255,0.05);
+
+    backdrop-filter:blur(20px);
+
+    border:1px solid rgba(255,255,255,0.1);
+
+    box-shadow:0 0 40px rgba(255,0,0,0.2);
+
+    text-align:center;
+}
+
+.top-bar{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:40px;
+}
+
+.logo{
+
+    font-size:28px;
+
+    font-weight:bold;
+}
+
+.status-live{
+
+    background:#002b1a;
+
+    color:#00ff99;
+
+    padding:10px 18px;
+
+    border-radius:30px;
+
+    font-size:14px;
+
+    box-shadow:0 0 15px #00ff99;
+}
+
+h1{
+
+    font-size:55px;
+
+    margin-bottom:15px;
+
+    line-height:1.2;
+}
+
+.subtitle{
+
+    color:#aaa;
+
+    font-size:20px;
+
+    margin-bottom:40px;
+}
+
+.sos-btn{
+
+    width:220px;
+    height:220px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:linear-gradient(145deg,#ff1a1a,#990000);
+
+    color:white;
+
+    font-size:42px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    box-shadow:0 0 40px red;
+
+    animation:pulse 1.5s infinite;
+
+    transition:0.3s;
+}
+
+.sos-btn:hover{
+
+    transform:scale(1.08);
+
+    box-shadow:0 0 100px red;
+}
+
+.voice-btn{
+
+    margin-top:30px;
+
+    padding:16px 35px;
+
+    border:none;
+
+    border-radius:14px;
+
+    background:linear-gradient(145deg,#0066ff,#003399);
+
+    color:white;
+
+    font-size:18px;
+
+    cursor:pointer;
+
+    transition:0.3s;
+}
+
+.voice-btn:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:0 0 20px #0066ff;
+}
+
+.popup{
+
+    display:none;
+
+    margin-top:40px;
+
+    background:rgba(255,255,255,0.05);
+
+    border:1px solid rgba(255,255,255,0.1);
+
+    padding:25px;
+
+    border-radius:25px;
+
+    animation:fadeIn 0.5s ease;
+}
+
+.popup h2{
+
+    color:#ff4d4d;
+
+    margin-bottom:15px;
+}
+
+.popup p{
+
+    color:#ccc;
+
+    margin-bottom:20px;
+}
+
+#locationText{
+
+    color:#00ffcc;
+
+    margin-bottom:20px;
+}
+
+#mapFrame{
+
+    width:100%;
+    height:350px;
+
+    border:none;
+
+    border-radius:20px;
+
+    margin-top:15px;
+}
+
+.hospital-btn{
+
+    margin-top:20px;
+
+    padding:14px 28px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:linear-gradient(145deg,#00cc66,#00994d);
+
+    color:white;
+
+    font-size:18px;
+
+    cursor:pointer;
+
+    transition:0.3s;
+}
+
+.hospital-btn:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:0 0 20px #00cc66;
+}
+
+.alert-box{
+
+    margin-top:25px;
+
+    padding:15px;
+
+    border-radius:14px;
+
+    background:#002b1a;
+
+    color:#00ff99;
+
+    font-weight:bold;
+
+    border:1px solid #00ff99;
+
+    box-shadow:0 0 20px rgba(0,255,153,0.4);
+}
+
+.status-grid{
+
+    margin-top:30px;
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:18px;
+}
+
+.status-card{
+
+    background:rgba(255,255,255,0.06);
+
+    border:1px solid rgba(255,255,255,0.1);
+
+    padding:22px;
+
+    border-radius:18px;
+
+    backdrop-filter:blur(12px);
+
+    transition:0.3s;
+
+    font-weight:bold;
+}
+
+.status-card:hover{
+
+    transform:translateY(-5px);
+
+    box-shadow:0 0 20px cyan;
+}
+
+@keyframes spin{
+
+    100%{
+        transform:rotate(360deg);
+    }
+}
+
+@keyframes pulse{
+
+    0%{
+        box-shadow:0 0 20px red;
+    }
+
+    50%{
+        box-shadow:0 0 90px red;
+    }
+
+    100%{
+        box-shadow:0 0 20px red;
+    }
+}
+
+@keyframes fadeIn{
+
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
