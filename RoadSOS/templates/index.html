@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>RoadSoS</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+    <!-- LOADING SCREEN -->
+
+    <div class="loading-screen"
+         id="loadingScreen">
+
+        <div class="loader-circle">
+            🚨
+        </div>
+
+        <h1>
+            RoadSoS
+        </h1>
+
+        <p>
+            Emergency Response System
+        </p>
+
+    </div>
+
+    <!-- MAIN PHONE -->
+
+    <div class="phone">
+
+        <!-- TOAST -->
+
+        <div class="toast"
+             id="toast">
+
+            🚨 Emergency System Ready
+
+        </div>
+
+        <!-- TOP STATUS -->
+
+        <div class="top-status">
+
+            <div class="online-status"
+                 id="networkStatus">
+
+                🟢 Online
+
+            </div>
+
+            <div class="status-right">
+
+                <span id="liveTime">
+
+                    12:00
+
+                </span>
+
+                <span id="batteryLevel">
+
+                    🔋 --%
+
+                </span>
+
+            </div>
+
+        </div>
+
+        <!-- LOGO -->
+
+        <h1 class="logo">
+
+            Road<span>SoS</span>
+
+        </h1>
+
+        <p class="tagline">
+
+            We’re here when you need us
+        </p>
+
+        <!-- CARDS -->
+
+        <div class="cards">
+
+            <!-- VEHICLE -->
+
+            <div class="card"
+                 id="vehicleCard">
+
+                🚗
+
+                <p>
+                    Vehicle Assistance
+                </p>
+
+            </div>
+
+            <!-- AMBULANCE -->
+
+            <div class="card"
+                 id="ambulanceCard">
+
+                🚑
+
+                <p>
+                    Ambulance Services
+                </p>
+
+            </div>
+
+            <!-- FIRST AID -->
+
+            <div class="card"
+                 id="firstAidCard">
+
+                🩹
+
+                <p>
+                    First Aid
+                </p>
+
+            </div>
+
+            <!-- POLICE -->
+
+            <div class="card"
+                 id="policeCard">
+
+                👮
+
+                <p>
+                    Police Assistance
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- SOS BUTTON -->
+
+        <button class="sos-btn">
+
+            SOS
+
+        </button>
+
+        <!-- VOICE SOS -->
+
+        <button class="voice-btn"
+                id="voiceBtn">
+
+            🎤 Voice SOS
+
+        </button>
+
+        <!-- SOS POPUP OVERLAY -->
+
+        <div class="popup-overlay"
+             id="popupOverlay">
+
+            <!-- SOS POPUP -->
+
+            <div class="popup">
+
+                <h2>
+                    🚨 SOS ACTIVATED
+                </h2>
+
+                <p>
+                    Emergency services are being alerted.
+                </p>
+
+                <!-- LOCATION -->
+
+                <div id="locationText">
+
+                    📍 Fetching Live Location...
+
+                </div>
+
+                <!-- MAP -->
+
+                <iframe id="mapFrame"></iframe>
+
+                <!-- HOSPITAL BUTTON -->
+
+                <a id="hospitalLink"
+                   target="_blank">
+
+                    <button>
+
+                        🏥 Nearby Hospitals
+
+                    </button>
+
+                </a>
+
+                <!-- EMERGENCY CONTACT -->
+
+                <div class="emergency-contacts">
+
+                    <h3>
+                        🚨 Emergency Contact
+                    </h3>
+
+                    <div class="contact-card"
+                         id="savedEmergencyContact">
+
+                        No Emergency Contact Saved
+
+                    </div>
+
+                    <a id="whatsappAlert"
+                       target="_blank">
+
+                        <button>
+
+                            📲 Send Live Location
+
+                        </button>
+
+                    </a>
+
+                </div>
+
+                <button id="closePopup">
+
+                    Close
+
+                </button>
+
+            </div>
+
+        </div>
+
+        <!-- FIRST AID POPUP -->
+
+        <div class="firstaid-popup"
+             id="firstAidPopup">
+
+            <h2>
+                🩹 First Aid Guide
+            </h2>
+
+            <div class="aid-tip">
+
+                ❤️ CPR:
+                Push hard & fast in center of chest.
+
+            </div>
+
+            <div class="aid-tip">
+
+                🩸 Bleeding:
+                Apply pressure using clean cloth.
+
+            </div>
+
+            <div class="aid-tip">
+
+                🔥 Burns:
+                Cool burn under running water.
+
+            </div>
+
+            <div class="aid-tip">
+
+                ⚡ Emergency:
+                Call ambulance immediately.
+
+            </div>
+
+            <button id="closeAidPopup">
+
+                Close
+
+            </button>
+
+        </div>
+
+        <!-- VEHICLE POPUP -->
+
+        <div class="vehicle-popup"
+             id="vehiclePopup">
+
+            <h2>
+                🚗 Vehicle Assistance
+            </h2>
+
+            <div class="vehicle-tip">
+
+                ⛽ Fuel Emergency Assistance
+
+            </div>
+
+            <div class="vehicle-tip">
+
+                🔧 Nearby Mechanic Support
+
+            </div>
+
+            <div class="vehicle-tip">
+
+                🛞 Tyre Puncture Help
+
+            </div>
+
+            <div class="vehicle-tip">
+
+                🚘 Towing Service Available
+
+            </div>
+
+            <a href="https://www.google.com/maps/search/mechanic+near+me/"
+               target="_blank">
+
+                <button>
+
+                    🔧 Nearby Mechanics
+
+                </button>
+
+            </a>
+
+            <button id="closeVehiclePopup">
+
+                Close
+
+            </button>
+
+        </div>
+
+        <!-- POLICE POPUP -->
+
+        <div class="police-popup"
+             id="policePopup">
+
+            <h2>
+                👮 Police Assistance
+            </h2>
+
+            <div class="police-tip">
+
+                🚨 Emergency Helpline: 112
+
+            </div>
+
+            <div class="police-tip">
+
+                🛡️ Stay in public & well-lit areas
+
+            </div>
+
+            <div class="police-tip">
+
+                📍 Share live location with trusted contacts
+
+            </div>
+
+            <a href="https://www.google.com/maps/search/police+station+near+me/"
+               target="_blank">
+
+                <button>
+
+                    🚔 Nearby Police Stations
+
+                </button>
+
+            </a>
+
+            <button id="closePolicePopup">
+
+                Close
+
+            </button>
+
+        </div>
+
+        <!-- AMBULANCE POPUP -->
+
+        <div class="ambulance-popup"
+             id="ambulancePopup">
+
+            <h2>
+                🚑 Ambulance Services
+            </h2>
+
+            <div class="ambulance-tip">
+
+                🚨 Emergency Ambulance: 108
+
+            </div>
+
+            <div class="ambulance-tip">
+
+                🏥 Nearby hospitals available
+
+            </div>
+
+            <div class="ambulance-tip">
+
+                ❤️ Keep patient calm & conscious
+
+            </div>
+
+            <a href="https://www.google.com/maps/search/hospitals+near+me/"
+               target="_blank">
+
+                <button>
+
+                    🏥 Nearby Hospitals
+
+                </button>
+
+            </a>
+
+            <button id="closeAmbulancePopup">
+
+                Close
+
+            </button>
+
+        </div>
+
+        <!-- SETTINGS POPUP -->
+
+        <div class="settings-popup"
+             id="settingsPopup">
+
+            <h2>
+                ⚙️ Settings
+            </h2>
+
+            <!-- DARK MODE -->
+
+            <div class="setting-item">
+
+                🌙 Dark Theme
+
+                <br><br>
+
+                <button id="themeToggle">
+
+                    Disable
+
+                </button>
+
+            </div>
+
+            <!-- EMERGENCY CONTACT -->
+
+            <div class="setting-item">
+
+                🚨 Emergency Contact
+
+                <br><br>
+
+                <input type="text"
+                       id="contactInput"
+                       placeholder="Enter emergency number">
+
+                <button id="saveContactBtn">
+
+                    Save Contact
+
+                </button>
+
+            </div>
+
+            <div class="setting-item">
+
+                📱 Version:
+                RoadSoS v1.0
+
+            </div>
+
+            <button id="closeSettingsPopup">
+
+                Close
+
+            </button>
+
+        </div>
+
+        <!-- CALL POPUP -->
+
+        <div class="nearby-popup"
+             id="nearbyPopup">
+
+            <h2>
+                📞 Emergency Calls
+            </h2>
+
+            <a href="tel:112">
+
+                <button>
+
+                    👮 Call Police
+
+                </button>
+
+            </a>
+
+            <a href="tel:108">
+
+                <button>
+
+                    🚑 Call Ambulance
+
+                </button>
+
+            </a>
+
+            <a href="tel:101">
+
+                <button>
+
+                    🔥 Call Fire Brigade
+
+                </button>
+
+            </a>
+
+            <button id="closeNearbyPopup">
+
+                Close
+
+            </button>
+
+        </div>
+
+        <!-- BOTTOM NAV -->
+
+        <div class="bottom-nav">
+
+            <!-- HOME -->
+
+            <div class="nav-item active">
+
+                🏠
+
+                <p>
+                    Home
+                </p>
+
+            </div>
+
+            <!-- CALL -->
+
+            <div class="nav-item"
+                 id="callBtn">
+
+                📞
+
+                <p>
+                    Call
+                </p>
+
+            </div>
+
+            <!-- SETTINGS -->
+
+            <div class="nav-item"
+                 id="settingsBtn">
+
+                ⚙️
+
+                <p>
+                    Settings
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- FLASH -->
+
+    <div class="flash-screen"
+         id="flashScreen"></div>
+
+    <!-- SIREN -->
+
+    <audio id="sirenSound">
+
+        <source src="https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3"
+                type="audio/mpeg">
+
+    </audio>
+
+<!-- FIREBASE -->
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-messaging-compat.js"></script>
+
+<!-- SCRIPT -->
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+
+</html>
