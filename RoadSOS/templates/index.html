@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RoadSoS — Emergency Response</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<!-- LOADING SCREEN -->
+<div class="loading-screen" id="loadingScreen">
+    <div class="loader-ring"><div class="loader-inner"><span class="loader-icon">🚨</span></div></div>
+    <div class="loader-text">
+        <h1>ROAD<span>SoS</span></h1>
+        <p class="loader-sub">Initializing Emergency System</p>
+        <div class="loader-bar"><div class="loader-fill"></div></div>
+    </div>
+</div>
+
+<!-- FLASH OVERLAY -->
+<div class="flash-screen" id="flashScreen"></div>
+
+<!-- MAIN PHONE -->
+<div class="phone">
+
+    <!-- TOAST -->
+    <div class="toast" id="toast">🚨 Emergency System Ready</div>
+
+    <!-- TOP STATUS BAR -->
+    <div class="top-status">
+        <div class="online-status" id="networkStatus">
+            <span class="status-dot"></span> Online
+        </div>
+        <div class="status-right">
+            <span class="time-display" id="liveTime">12:00</span>
+            <span class="battery-display" id="batteryLevel">🔋 --%</span>
+        </div>
+    </div>
+
+    <!-- LOGO -->
+    <div class="logo-area">
+        <h1 class="logo">ROAD<span>SoS</span></h1>
+        <p class="logo-tagline">Emergency Response System</p>
+    </div>
+
+    <!-- CARDS GRID -->
+    <div class="cards">
+        <div class="card card--vehicle" id="vehicleCard">
+            <div class="card-icon">🚗</div>
+            <div class="card-label">Vehicle<br>Assist</div>
+            <div class="card-glow"></div>
+        </div>
+        <div class="card card--ambulance" id="ambulanceCard">
+            <div class="card-icon">🚑</div>
+            <div class="card-label">Ambulance<br>Services</div>
+            <div class="card-glow"></div>
+        </div>
+        <div class="card card--firstaid" id="firstAidCard">
+            <div class="card-icon">🩹</div>
+            <div class="card-label">First<br>Aid</div>
+            <div class="card-glow"></div>
+        </div>
+        <div class="card card--police" id="policeCard">
+            <div class="card-icon">👮</div>
+            <div class="card-label">Police<br>Assist</div>
+            <div class="card-glow"></div>
+        </div>
+    </div>
+
+    <!-- SOS BUTTON AREA -->
+    <div class="sos-area">
+        <div class="sos-rings">
+            <div class="ring ring1"></div>
+            <div class="ring ring2"></div>
+            <div class="ring ring3"></div>
+        </div>
+        <button class="sos-btn" id="sosBtn" aria-label="Activate SOS Emergency Alert">
+            <span class="sos-label">SOS</span>
+            <span class="sos-sub">TAP TO ALERT</span>
+        </button>
+    </div>
+
+    <!-- SOS POPUP OVERLAY -->
+    <div class="popup-overlay" id="popupOverlay">
+        <div class="popup">
+            <div class="popup-header">
+                <div class="popup-icon-badge red">🚨</div>
+                <h2>SOS ACTIVATED</h2>
+                <p class="popup-sub" id="sosStatusText">Fetching your location...</p>
+            </div>
+
+            <div id="locationText" class="location-box">
+                <span class="loc-ping"></span>
+                📍 Fetching Live Location...
+            </div>
+
+            <a id="mapLink" href="#" target="_blank" rel="noopener noreferrer" class="action-link" style="display:none">
+                <button class="btn btn--blue" style="margin-bottom:14px;">🗺️ Open My Location on Maps</button>
+            </a>
+
+            <a id="hospitalLink" href="#" target="_blank" rel="noopener noreferrer" class="action-link" style="display:none">
+                <button class="btn btn--red">🏥 Nearby Hospitals</button>
+            </a>
+
+            <div class="emergency-contacts">
+                <p class="contact-label">🚨 Emergency Contact</p>
+                <div class="contact-card" id="savedEmergencyContact">No Emergency Contact Saved</div>
+
+                <a id="whatsappAlert" href="#" target="_blank" rel="noopener noreferrer" class="action-link" style="display:none">
+                    <button class="btn btn--green">📲 Send Live Location via WhatsApp</button>
+                </a>
+
+                <a id="smsAlert" href="#" class="action-link" style="display:none">
+                    <button class="btn btn--orange">📵 Send SMS (Offline Fallback)</button>
+                </a>
+
+                <div id="noContactWarning" style="display:none;" class="warn-box">
+                    ⚠️ No emergency contact saved. Go to Settings → Save Contact.
+                </div>
+            </div>
+
+            <button class="btn btn--outline" id="closePopup">✕ Close Alert</button>
+        </div>
+    </div>
+
+    <!-- FIRST AID POPUP -->
+    <div class="modal-popup" id="firstAidPopup">
+        <div class="popup-header">
+            <div class="popup-icon-badge green">🩹</div>
+            <h2>First Aid Guide</h2>
+        </div>
+        <div class="tip-list">
+            <div class="tip-item"><span class="tip-icon">❤️</span><div><strong>CPR</strong>Push hard &amp; fast at center of chest — 100–120 compressions/min</div></div>
+            <div class="tip-item"><span class="tip-icon">🩸</span><div><strong>Bleeding</strong>Apply firm pressure using a clean cloth; elevate if possible</div></div>
+            <div class="tip-item"><span class="tip-icon">🔥</span><div><strong>Burns</strong>Cool under running water for 10+ minutes; don't use ice</div></div>
+            <div class="tip-item"><span class="tip-icon">⚡</span><div><strong>Seizures</strong>Clear space, don't restrain; call ambulance immediately</div></div>
+        </div>
+        <button class="btn btn--green" id="closeAidPopup">✕ Close</button>
+    </div>
+
+    <!-- VEHICLE POPUP -->
+    <div class="modal-popup" id="vehiclePopup">
+        <div class="popup-header">
+            <div class="popup-icon-badge orange">🚗</div>
+            <h2>Vehicle Assistance</h2>
+        </div>
+        <div class="tip-list">
+            <div class="tip-item"><span class="tip-icon">⛽</span><div><strong>Fuel Emergency</strong>Roadside fuel delivery available near you</div></div>
+            <div class="tip-item"><span class="tip-icon">🔧</span><div><strong>Mechanic Support</strong>Find nearby certified mechanics instantly</div></div>
+            <div class="tip-item"><span class="tip-icon">🛞</span><div><strong>Tyre Puncture</strong>Tyre repair &amp; replacement help on the spot</div></div>
+            <div class="tip-item"><span class="tip-icon">🚘</span><div><strong>Towing Service</strong>24/7 towing available for breakdowns</div></div>
+        </div>
+        <a href="https://www.google.com/maps/search/mechanic+near+me/" target="_blank" rel="noopener noreferrer" class="action-link">
+            <button class="btn btn--orange">🔧 Find Nearby Mechanics</button>
+        </a>
+        <button class="btn btn--outline" id="closeVehiclePopup">✕ Close</button>
+    </div>
+
+    <!-- POLICE POPUP -->
+    <div class="modal-popup" id="policePopup">
+        <div class="popup-header">
+            <div class="popup-icon-badge blue">👮</div>
+            <h2>Police Assistance</h2>
+        </div>
+        <div class="tip-list">
+            <div class="tip-item"><span class="tip-icon">🚨</span><div><strong>Emergency Helpline</strong>Call <a href="tel:112" class="inline-link">112</a> for immediate police help</div></div>
+            <div class="tip-item"><span class="tip-icon">🛡️</span><div><strong>Stay Safe</strong>Move to public, well-lit areas if in danger</div></div>
+            <div class="tip-item"><span class="tip-icon">📍</span><div><strong>Share Location</strong>Send live location to trusted contacts right now</div></div>
+        </div>
+        <a href="https://www.google.com/maps/search/police+station+near+me/" target="_blank" rel="noopener noreferrer" class="action-link">
+            <button class="btn btn--blue">🚔 Nearby Police Stations</button>
+        </a>
+        <button class="btn btn--outline" id="closePolicePopup">✕ Close</button>
+    </div>
+
+    <!-- AMBULANCE POPUP -->
+    <div class="modal-popup" id="ambulancePopup">
+        <div class="popup-header">
+            <div class="popup-icon-badge red">🚑</div>
+            <h2>Ambulance Services</h2>
+        </div>
+        <div class="tip-list">
+            <div class="tip-item"><span class="tip-icon">🚨</span><div><strong>Emergency Ambulance</strong>Call <a href="tel:108" class="inline-link">108</a> — free 24/7 service</div></div>
+            <div class="tip-item"><span class="tip-icon">🏥</span><div><strong>Nearby Hospitals</strong>Live map of hospitals around your location</div></div>
+            <div class="tip-item"><span class="tip-icon">❤️</span><div><strong>Patient Care</strong>Keep patient calm, conscious &amp; lying down</div></div>
+        </div>
+        <a href="https://www.google.com/maps/search/hospitals+near+me/" target="_blank" rel="noopener noreferrer" class="action-link">
+            <button class="btn btn--red">🏥 Find Nearby Hospitals</button>
+        </a>
+        <button class="btn btn--outline" id="closeAmbulancePopup">✕ Close</button>
+    </div>
+
+    <!-- SETTINGS POPUP -->
+    <div class="modal-popup" id="settingsPopup">
+        <div class="popup-header">
+            <div class="popup-icon-badge purple">⚙️</div>
+            <h2>Settings</h2>
+        </div>
+        <div class="setting-block">
+            <div class="setting-label">🌙 Dark Theme</div>
+            <div class="toggle-row">
+                <span class="toggle-hint">Currently: <strong id="themeLabel">Dark</strong></span>
+                <button class="btn btn--purple btn--sm" id="themeToggle">Disable</button>
+            </div>
+        </div>
+        <div class="setting-block">
+            <div class="setting-label">🚨 Emergency Contact</div>
+            <p style="font-size:12px;color:var(--text-muted);margin-bottom:10px;font-family:var(--font-mono);">Enter number without country code (e.g. 9876543210)</p>
+            <input type="tel" id="contactInput" class="setting-input" placeholder="10-digit mobile number" maxlength="10" pattern="[0-9]{10}">
+            <button class="btn btn--purple" id="saveContactBtn">💾 Save Contact</button>
+        </div>
+        <div class="setting-block version-tag">
+            📱 RoadSoS <strong>v1.0</strong> — Hackathon Edition
+        </div>
+        <button class="btn btn--outline" id="closeSettingsPopup">✕ Close</button>
+    </div>
+
+    <!-- CALL POPUP -->
+    <div class="modal-popup" id="nearbyPopup">
+        <div class="popup-header">
+            <div class="popup-icon-badge green">📞</div>
+            <h2>Emergency Calls</h2>
+        </div>
+        <div class="call-grid">
+            <a href="tel:112" class="call-card call--police">
+                <span class="call-icon">👮</span>
+                <span class="call-name">Police</span>
+                <span class="call-num">112</span>
+            </a>
+            <a href="tel:108" class="call-card call--ambulance">
+                <span class="call-icon">🚑</span>
+                <span class="call-name">Ambulance</span>
+                <span class="call-num">108</span>
+            </a>
+            <a href="tel:101" class="call-card call--fire">
+                <span class="call-icon">🔥</span>
+                <span class="call-name">Fire Brigade</span>
+                <span class="call-num">101</span>
+            </a>
+            <a href="tel:1073" class="call-card call--highway">
+                <span class="call-icon">🛣️</span>
+                <span class="call-name">Highway</span>
+                <span class="call-num">1073</span>
+            </a>
+        </div>
+        <button class="btn btn--outline" id="closeNearbyPopup">✕ Close</button>
+    </div>
+
+    <!-- BOTTOM NAV -->
+    <div class="bottom-nav">
+        <div class="nav-item active">
+            <span class="nav-icon">🏠</span>
+            <span class="nav-label">Home</span>
+        </div>
+        <div class="nav-item" id="callBtn">
+            <span class="nav-icon">📞</span>
+            <span class="nav-label">Call</span>
+        </div>
+        <div class="nav-item" id="settingsBtn">
+            <span class="nav-icon">⚙️</span>
+            <span class="nav-label">Settings</span>
+        </div>
+    </div>
+
+</div><!-- end .phone -->
+
+<!-- SIREN -->
+<audio id="sirenSound" preload="auto">
+    <source src="https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3" type="audio/mpeg">
+</audio>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
